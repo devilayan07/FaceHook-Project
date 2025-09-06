@@ -54,7 +54,7 @@ switch(action.type){
         return{
             ...state,
             loading:false,
-            post:state.post.map((item)=>item.id===action.data.id ? action.data : item)
+            post:state.post.map((item)=>item.id===action.data.id ? {...item,...action.data} : item)
 
         }
     };

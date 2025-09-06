@@ -27,19 +27,19 @@ function PostEntry({onCreate,postToUpdate}) {
     reset
   } = useForm();
 
-  console.log(postToUpdate,"postToUpdate")
 
   useEffect(()=>{
     if(postToUpdate){
       reset({
         content:postToUpdate.content,
-        image:postToUpdate.image
       })
+      setSelectedFile(null)
 
     }      else{
         reset({
           content:""
         })
+        setSelectedFile(null)
       }
 
   },[postToUpdate,reset])
@@ -49,13 +49,15 @@ const handleImageUpload=(e)=>{
   e.preventDefault()
   fileUploadRef.current.click()
 }
+
+  
+
   const handlePostSubmit = async(data) => {
     console.log(data);
     const formData=new FormData()
     formData.append("content",data?.content)
     if(selectedFile){
-          formData.append("image",selectedFile)
-
+      formData.append("image",selectedFile)
     }
 
 
@@ -127,6 +129,7 @@ tar"
             Add Photo
           </label>
           <input 
+          {...register("image")}
           type="file" 
           name="image" 
           id="image" 
